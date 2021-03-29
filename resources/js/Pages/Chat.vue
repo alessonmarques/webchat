@@ -28,7 +28,7 @@
                         <div class="w-full p-6 flex flex-col overflow-y-scroll h-full">
                             <div v-for="message in messages" :key="message.id"
                                 :class="(message.from == user.id) ? 'text-right' : ''"
-                                class="w-full mb-3">
+                                class="w-full mb-3 message">
                                 <p
                                     :class="(message.from == user.id) ? 'messageFromMe' : 'messageToMe'"
                                     class="inline-block p-2 rounded-md " style="max-width: 75%;" >
@@ -41,9 +41,9 @@
                         <!-- form -->
                         <div v-if="userActive"
                              class="w-full bg-gray-200 bg-opacity-25 p-6 border-t border-gray-200">
-                            <form>
+                            <form v-on:submit.prevent="sendMessage">
                                 <div class="flex rounded-md overflow-hidden border border-gray-300">
-                                    <input type="text" class="flex-1 px-4 py-2 text-sm focus:outline-none border-gray-300">
+                                    <input v-model="message" type="text" class="flex-1 px-4 py-2 text-sm focus:outline-none border-gray-300">
                                     <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2">Enviar</button>
                                 </div>
                             </form>
@@ -69,20 +69,45 @@
             return {
                 users: [],
                 messages: [],
-                userActive: null
+                userActive: null,
+                message: '',
             }
         },
         methods: {
-            loadMessages: function(userId) {
+            scrollToBottom: function () {
+                if(this.messages.length)
+                {
+                    document.querySelectorAll('.message:last-child')[0].scrollIntoView();
+                }
+            },
+            sendMessage: async function () {
+
+               await axios.post('api/messages/store', {
+                    'content': this.message,
+                    'to': this.userActive.id
+                }).then(response => {
+                    this.messages.push({
+                        'from': this.user.id,
+                        'to': this.userActive.id,
+                        'content': this.message,
+                        'created_at': new Date().toISOString(),
+                        'updated_at': new Date().toISOString()
+                    });
+                    this.message = '';
+                });
+                this.scrollToBottom();
+            },
+            loadMessages: async function(userId) {
 
                 axios.get(`api/users/${userId}`).then(response => {
                     this.userActive = response.data.user
                 });
 
-                axios.get(`api/messages/${userId}`).then(response => {
+                await axios.get(`api/messages/${userId}`).then(response => {
                     this.messages = response.data.messages
                 });
 
+                this.scrollToBottom();
             },
             formatDate: function(value){
                 if(value) {
