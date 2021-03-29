@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "autoprefixer": "^10.2.5",
+        "moment": "^2.29.1",
         "postcss-cli": "^8.3.1",
         "postcss-loader": "^4.2.0",
         "semver": "^5.7.1"

@@ -12,15 +12,12 @@
                     <!-- list users -->
                     <div class="w-3/12 bg-gray-200 bg-opacity-25 border-r border-gray-200 overflow-y-scroll">
                         <ul>
-                            <li class="p-6 text-lg text-gray-600 leading-7 font-semibold border-b border-gray-200 hover:bg-opacity-50 hover:cursor-pointer hover:bg-gray-200">
+                            <li :class="(userActive && userActive.id == user.id) ? 'bg-gray-200 bg-opacity-50' : ''"
+                                v-for="user in users" :key="user.id"
+                                @click="() => {loadMessages(user.id)}"
+                                class="p-6 text-lg text-gray-600 leading-7 font-semibold border-b border-gray-200 hover:bg-opacity-50 hover:cursor-pointer hover:bg-gray-200">
                                 <p class="flex items-center">
-                                    Alesson M. Silva
-                                    <span class="ml-2 w-2 h-2 bg-blue-300 rounded-full"></span>
-                                </p>
-                            </li>
-                            <li class="p-6 text-lg text-gray-600 leading-7 font-semibold border-b border-gray-200 hover:bg-opacity-50 hover:cursor-pointer hover:bg-gray-200">
-                                <p class="flex items-center">
-                                    Jacqueline França
+                                    {{ user.name }}
                                     <span class="ml-2 w-2 h-2 bg-blue-300 rounded-full"></span>
                                 </p>
                             </li>
@@ -29,21 +26,21 @@
                     <div class="w-9/12 flex flex-col justify-between">
                     <!-- messages -->
                         <div class="w-full p-6 flex flex-col overflow-y-scroll h-full">
-                            <div class="w-full mb-3 text-right">
-                                <p class="inline-block p-2 rounded-md messageFromMe" style="max-width: 75%;" >
-                                    Olá!
-                                    <span class="block mt-1 text-xs text-gray-500">29/03/2021 03:43</span>
+                            <div v-for="message in messages" :key="message.id"
+                                :class="(message.from == user.id) ? 'text-right' : ''"
+                                class="w-full mb-3">
+                                <p
+                                    :class="(message.from == user.id) ? 'messageFromMe' : 'messageToMe'"
+                                    class="inline-block p-2 rounded-md " style="max-width: 75%;" >
+                                    {{ message.content }}
+                                    <span class="block mt-1 text-xs text-gray-500">{{ formatDate(message.created_at) }}</span>
                                 </p>
                             </div>
-                            <div class="w-full mb-3 ">
-                                <p class="inline-block p-2 rounded-md messageToMe" style="max-width: 75%;" >
-                                    Oi!
-                                    <span class="block mt-1 text-xs text-gray-500">29/03/2021 03:43</span>
-                                </p>
-                            </div>
+
                         </div>
                         <!-- form -->
-                        <div class="w-full bg-gray-200 bg-opacity-25 p-6 border-t border-gray-200">
+                        <div v-if="userActive"
+                             class="w-full bg-gray-200 bg-opacity-25 p-6 border-t border-gray-200">
                             <form>
                                 <div class="flex rounded-md overflow-hidden border border-gray-300">
                                     <input type="text" class="flex-1 px-4 py-2 text-sm focus:outline-none border-gray-300">
@@ -60,10 +57,49 @@
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
+    import moment from 'moment';
+
+    moment.locale("pt-br");
 
     export default {
         components: {
             AppLayout,
+        },
+        data() {
+            return {
+                users: [],
+                messages: [],
+                userActive: null
+            }
+        },
+        methods: {
+            loadMessages: function(userId) {
+
+                axios.get(`api/users/${userId}`).then(response => {
+                    this.userActive = response.data.user
+                });
+
+                axios.get(`api/messages/${userId}`).then(response => {
+                    this.messages = response.data.messages
+                });
+
+            },
+            formatDate: function(value){
+                if(value) {
+                    return moment(value).format('DD/MM/YYYY HH:mm')
+                }
+            },
+        },
+        computed: {
+            user() {
+                return this.$page.props.auth.user
+            }
+        },
+        mounted() {
+
+            axios.get('api/users').then(response => {
+                this.users = response.data.users
+            });
         }
     }
 </script>
