@@ -12277,6 +12277,38 @@ select {
   cursor: not-allowed;
 }
 
+.hover\:cursor-auto:hover {
+  cursor: auto;
+}
+
+.hover\:cursor-default:hover {
+  cursor: default;
+}
+
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
+}
+
+.hover\:cursor-wait:hover {
+  cursor: wait;
+}
+
+.hover\:cursor-text:hover {
+  cursor: text;
+}
+
+.hover\:cursor-move:hover {
+  cursor: move;
+}
+
+.hover\:cursor-help:hover {
+  cursor: help;
+}
+
+.hover\:cursor-not-allowed:hover {
+  cursor: not-allowed;
+}
+
 .block {
   display: block;
 }
@@ -32717,6 +32749,18 @@ select {
           animation: bounce 1s infinite;
 }
 
+.messageFromMe {
+  --tw-bg-opacity: 1;
+  background-color: rgba(129, 140, 248, var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.25;
+}
+
+.messageToMe {
+  --tw-bg-opacity: 1;
+  background-color: rgba(156, 163, 175, var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.25;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
@@ -44213,38 +44257,6 @@ select {
 
   .sm\:box-content {
     box-sizing: content-box;
-  }
-
-  .sm\:cursor-auto {
-    cursor: auto;
-  }
-
-  .sm\:cursor-default {
-    cursor: default;
-  }
-
-  .sm\:cursor-pointer {
-    cursor: pointer;
-  }
-
-  .sm\:cursor-wait {
-    cursor: wait;
-  }
-
-  .sm\:cursor-text {
-    cursor: text;
-  }
-
-  .sm\:cursor-move {
-    cursor: move;
-  }
-
-  .sm\:cursor-help {
-    cursor: help;
-  }
-
-  .sm\:cursor-not-allowed {
-    cursor: not-allowed;
   }
 
   .sm\:block {
@@ -76107,38 +76119,6 @@ select {
     box-sizing: content-box;
   }
 
-  .md\:cursor-auto {
-    cursor: auto;
-  }
-
-  .md\:cursor-default {
-    cursor: default;
-  }
-
-  .md\:cursor-pointer {
-    cursor: pointer;
-  }
-
-  .md\:cursor-wait {
-    cursor: wait;
-  }
-
-  .md\:cursor-text {
-    cursor: text;
-  }
-
-  .md\:cursor-move {
-    cursor: move;
-  }
-
-  .md\:cursor-help {
-    cursor: help;
-  }
-
-  .md\:cursor-not-allowed {
-    cursor: not-allowed;
-  }
-
   .md\:block {
     display: block;
   }
@@ -107997,38 +107977,6 @@ select {
 
   .lg\:box-content {
     box-sizing: content-box;
-  }
-
-  .lg\:cursor-auto {
-    cursor: auto;
-  }
-
-  .lg\:cursor-default {
-    cursor: default;
-  }
-
-  .lg\:cursor-pointer {
-    cursor: pointer;
-  }
-
-  .lg\:cursor-wait {
-    cursor: wait;
-  }
-
-  .lg\:cursor-text {
-    cursor: text;
-  }
-
-  .lg\:cursor-move {
-    cursor: move;
-  }
-
-  .lg\:cursor-help {
-    cursor: help;
-  }
-
-  .lg\:cursor-not-allowed {
-    cursor: not-allowed;
   }
 
   .lg\:block {
@@ -139891,38 +139839,6 @@ select {
     box-sizing: content-box;
   }
 
-  .xl\:cursor-auto {
-    cursor: auto;
-  }
-
-  .xl\:cursor-default {
-    cursor: default;
-  }
-
-  .xl\:cursor-pointer {
-    cursor: pointer;
-  }
-
-  .xl\:cursor-wait {
-    cursor: wait;
-  }
-
-  .xl\:cursor-text {
-    cursor: text;
-  }
-
-  .xl\:cursor-move {
-    cursor: move;
-  }
-
-  .xl\:cursor-help {
-    cursor: help;
-  }
-
-  .xl\:cursor-not-allowed {
-    cursor: not-allowed;
-  }
-
   .xl\:block {
     display: block;
   }
@@ -171781,38 +171697,6 @@ select {
 
   .\32xl\:box-content {
     box-sizing: content-box;
-  }
-
-  .\32xl\:cursor-auto {
-    cursor: auto;
-  }
-
-  .\32xl\:cursor-default {
-    cursor: default;
-  }
-
-  .\32xl\:cursor-pointer {
-    cursor: pointer;
-  }
-
-  .\32xl\:cursor-wait {
-    cursor: wait;
-  }
-
-  .\32xl\:cursor-text {
-    cursor: text;
-  }
-
-  .\32xl\:cursor-move {
-    cursor: move;
-  }
-
-  .\32xl\:cursor-help {
-    cursor: help;
-  }
-
-  .\32xl\:cursor-not-allowed {
-    cursor: not-allowed;
   }
 
   .\32xl\:block {
